@@ -1,2 +1,2 @@
-# hawkhead-flight-planner
-Basic flight planning system (sample)
+# Hawkhead Flight Planner
+Flight planning sytem with checklists
