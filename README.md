@@ -1,2 +1,3 @@
-# Hawkhead Flight Planner
-Flight planning sytem with checklists
+# Hawkhead Flight Planner (Test/In development)
+
+Flight planning and checklists app.
