@@ -11,7 +11,7 @@ class ChecklistController extends Controller
 {
     public function index(){
 
-        $checklists = Checklist::all();
+        $checklists = Checklist::groupBy('group_name')->get();
 
         return Inertia::render("checklists/Index", [
             'checklists' => $checklists
