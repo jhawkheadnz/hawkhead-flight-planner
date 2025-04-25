@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 use App\Models\User;
+use App\Models\Checklist;
 
 return new class extends Migration
 {
@@ -20,8 +21,11 @@ return new class extends Migration
             $table->string("name"); // name of group of checklists
             $table->string("description"); // describe checklist group
             $table->string("tag_name"); // tag used to show group
+            
+            $table->integer("order")->default(0); // order of checklist groups if custom
 
             $table->timestamps();
+
         });
     }
 
@@ -32,4 +36,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('checklist_groups');
     }
+
+    
+
 };

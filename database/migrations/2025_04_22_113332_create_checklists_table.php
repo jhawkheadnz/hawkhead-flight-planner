@@ -22,9 +22,10 @@ return new class extends Migration
 
             $table->string("name"); // name of the checklist example: C152 Checklists
             $table->string("description"); // describes the checklist
+            $table->integer("order")->default(0); // set order that checklists should be displayed
             
-
             $table->timestamps();
+            
         });
     }
 
@@ -35,4 +36,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('checklists');
     }
+
+    
+
 };

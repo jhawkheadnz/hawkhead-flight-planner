@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string("description");
             $table->boolean("is_visible");
 
+            $table->integer("order")->default(0); // set order that items should be displayed
+
             $table->timestamps();
         });
     }
