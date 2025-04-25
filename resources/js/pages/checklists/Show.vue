@@ -5,14 +5,14 @@ import { Head, Link } from '@inertiajs/vue3';
 import { ClipboardList } from 'lucide-vue-next';
 import PlaceholderPattern from '../../components/PlaceholderPattern.vue';
 
+defineProps({ checklists: Array, checklist_group: Object, tag_name: String });
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Checklists',
         href: '/checklists',
-    },
+    }
 ];
-
-defineProps({ checklist_groups: Array });
 
 </script>
 
@@ -21,23 +21,19 @@ defineProps({ checklist_groups: Array });
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-            
             <div>
                 
-                <div class="text-lg font-extrabold text-blue-800 pb-3">Checklists</div>
+                <div class="text-lg font-extrabold text-blue-800 pb-3">{{ checklist_group.name }}</div>
+                <p>{{  }}</p>
                 
-                <ul>
-                    <li v-for="checklist_group in checklist_groups" class="rounded-lg flex cursor-pointer border p-3 hover:bg-blue-950 text-white bg-gray-800">
-                        <Link :href="`/checklists/view/${checklist_group.tag_name}`">
-                            <div class="flex">
-                                <ClipboardList class=" mr-5"/> {{ checklist_group.name }}
-                            </div>
-                        </Link>
-                    </li>
+                <ul v-for="checklist in checklists" class="rounded-lg flex cursor-pointer border p-3 hover:bg-blue-950 text-white bg-gray-800">
+                    <Link  :href="`/checklists/view/${tag_name}/${checklist.id}`">
+                        <li>
+                            <span>{{ checklist.name }}</span> <span class="text-gray-500"> - {{  checklist.description }}</span>
+                        </li> 
+                    </Link>
                 </ul>
-
             </div>
-
         </div>
     </AppLayout>
 </template>
