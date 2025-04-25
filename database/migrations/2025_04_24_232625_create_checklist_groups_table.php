@@ -4,7 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use App\Models\ChecklistGroup;
 use App\Models\User;
 
 return new class extends Migration
@@ -14,15 +13,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('checklists', function (Blueprint $table) {
+        Schema::create('checklist_groups', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignIdFor(ChecklistGroup::class); // converted into spearpate table
-            $table->foreignIdFor(User::class);
-
-            $table->string("name"); // name of the checklist example: C152 Checklists
-            $table->string("description"); // describes the checklist
+            $table->foreignIdFor(User::class); // see who created the checklist group
             
+            $table->string("name"); // name of group of checklists
+            $table->string("description"); // describe checklist group
+            $table->string("tag_name"); // tag used to show group
 
             $table->timestamps();
         });
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('checklists');
+        Schema::dropIfExists('checklist_groups');
     }
 };

@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 use App\Models\Checklist;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -16,6 +17,7 @@ return new class extends Migration
         Schema::create('checklist_items', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Checklist::class);
+            $table->foreignIdFor(User::class); // see who created checklist item
 
             $table->string("title");
             $table->string("description");

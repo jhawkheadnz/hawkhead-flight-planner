@@ -12,7 +12,8 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-defineProps({ checklists: Array })
+defineProps({ checklist_groups: Array });
+
 </script>
 
 <template>
@@ -26,11 +27,13 @@ defineProps({ checklists: Array })
                 <div class="text-lg font-extrabold text-blue-800 pb-3">Checklists</div>
                 
                 <ul>
-                    <li v-for="checklist in checklists" :key="checklist.id"  class="flex cursor-pointer border p-3 hover:bg-blue-950 text-white bg-gray-800"><Link :href="`/checklists/${checklist.id}`">
-                       <div class="flex">
-                           <ClipboardList class=" mr-5"/> {{ checklist.group_name }}
-                       </div>
-                    </Link></li>
+                    <li v-for="checklist_group in checklist_groups" class="rounded-lg flex cursor-pointer border p-3 hover:bg-blue-950 text-white bg-gray-800">
+                        <Link :href="`/checklists/${checklist_group.tag_name}`">
+                            <div class="flex">
+                                <ClipboardList class=" mr-5"/> {{ checklist_group.name }}
+                            </div>
+                        </Link>
+                    </li>
                 </ul>
 
             </div>
