@@ -13,7 +13,7 @@ defineProps<Props>();
 </script>
 
 <template>
-		<svg xmlns="http://www.w3.org/2000/svg" width="70" viewBox="0 0 2132 2132">
+		<svg xmlns="http://www.w3.org/2000/svg" width="70" viewBox="0 0 2132 2132" :class="className" v-bind="$attrs">
 			<defs>
 				<component is="style">
 				  .cls-1 {

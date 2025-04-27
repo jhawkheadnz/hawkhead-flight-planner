@@ -30,7 +30,9 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <div class="text-lg font-extrabold text-blue-800 pb-3">{{ checklist_title }}</div>
                 
                 <ul >
-                    <li class="rounded-lg flex cursor-pointer border p-3 hover:bg-blue-950 text-white bg-gray-800" v-for="checklist_item in checklist_items">
+                    <li class="rounded-lg flex cursor-pointer border p-3 hover:bg-blue-950 text-white bg-gray-800" 
+                        v-for="checklist_item in checklist_items"
+                        v-bind:key="checklist_item.id">
                         <CircleCheck class="mr-3"/> <span>{{ checklist_item.title }}</span> <span class="text-gray-500">- {{ checklist_item.description }}</span>
                     </li> 
                 </ul>

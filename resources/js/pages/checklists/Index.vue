@@ -29,7 +29,9 @@ defineProps<{
                 <div class="text-lg font-extrabold text-blue-800 pb-3">Checklists</div>
                 
                 <ul>
-                    <li v-for="checklist_group in checklist_groups" class="rounded-lg flex cursor-pointer border p-3 hover:bg-blue-950 text-white bg-gray-800">
+                    <li v-for="checklist_group in checklist_groups" 
+                    v-bind:key="checklist_group.id"
+                    class="rounded-lg flex cursor-pointer border p-3 hover:bg-blue-950 text-white bg-gray-800">
                         <Link :href="`/checklists/view/${checklist_group.tag_name}`">
                             <div class="flex">
                                 <ClipboardList class=" mr-5"/> {{ checklist_group.name }}
