@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, ListChecks, PlaneIcon } from 'lucide-vue-next';
+import { LayoutGrid, ListChecks, PlaneIcon } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -18,8 +18,8 @@ const mainNavItems: NavItem[] = [
         href: '/checklists',
         icon: ListChecks
     },{
-        title: 'Flight Planner',
-        href: '/flightplanner',
+        title: 'Flight Plans',
+        href: '/flightplans',
         icon: PlaneIcon
     }
 ];

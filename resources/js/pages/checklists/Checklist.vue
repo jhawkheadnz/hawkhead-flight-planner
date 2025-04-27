@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { ChecklistItem, type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
-import { CircleAlert, CircleCheck } from 'lucide-vue-next';
-import PlaceholderPattern from '../../components/PlaceholderPattern.vue';
+import { Head } from '@inertiajs/vue3';
+import { CircleCheck } from 'lucide-vue-next';
 
 defineProps<{
     checklist_items: Array<ChecklistItem>;
-    checklist_title: String;
+    checklist_title: string;
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [

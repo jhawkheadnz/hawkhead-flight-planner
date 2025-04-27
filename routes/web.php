@@ -8,17 +8,11 @@ use App\Http\Controllers\ChecklistGroupController;
 use App\Http\Controllers\ChecklistItemController;
 
 use App\Http\Controllers\FlightPlanController;
+use App\Http\Controllers\FlightRouteController;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('home');
+Route::get('/', function () { return Inertia::render('Welcome'); })->name('home');
 
-Route::get('dashboard', function () {
-    
-    return Inertia::render('Dashboard');
-
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::get('dashboard', function () { return Inertia::render('Dashboard'); })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Checklist Routes
 Route::get('checklists', [ChecklistGroupController::class, "index"])->middleware(['auth','verified'])->name("checklist_groups");
@@ -26,7 +20,12 @@ Route::get('checklists/view/{tag_name}', [ChecklistGroupController::class, "show
 Route::get('checklists/view/{tag_name}/{checklist}', [ChecklistItemController::class, "show"])->middleware(['auth', 'verified'])->name("checklist");
 
 // Flight Planning Routes
-Route::get('flightplanner', [FlightPlanController::class, "index"])->middleware(['auth', 'verified'])->name("flightplans"); // display all flight plans
+Route::get('flightplans', [FlightPlanController::class, "index"])->middleware(['auth', 'verified'])->name("flightplans"); // display all flight plans
+Route::get('flightplans/routes/{id}', [FlightRouteController::class, "index"])->middleware(['auth', 'verified'])->name("flight_routes");
+
+// Flight Route
+Route::get('flightroute/{flight_route}', [FlightRouteController::class, "show"])->middleware(['auth', 'verified'])->name("flight_route");
+Route::post('flightroute/{flight_route}', [FlightRouteController::class, "update"])->middleware(['auth', 'verified'])->name("flightroute.confirm");
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

@@ -44,8 +44,33 @@ export interface FlightPlan {
     updated_at: string;
 }
 
-export interface FlightPlanRoute {
+export interface FlightRoute {
     id: number;
+    user_id: number;
+    flight_plan_id: number;
+
+    from: string;
+    to: string;
+    airspeed_cas: number;
+    temp_c: number;
+    altitude: number;
+    airspeed_tas: number;
+    track: number;
+    wind_true: number;
+    wind_speed: number;
+    heading_true: number;
+    variation: string;
+    heading_magnetic: number;
+    deviation: string;
+    heading_compass: number;
+    ground_speed: number;
+
+    distance: number;
+    time: string;
+    eta: string;
+    fuel_consumption: number;
+    zone_fuel: string;
+
     created_at: string;
     updated_at: string;
 }

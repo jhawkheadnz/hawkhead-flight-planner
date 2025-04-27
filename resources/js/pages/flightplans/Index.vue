@@ -34,7 +34,7 @@ defineProps<{
                     <li v-for="flightplan in flightplans" 
                     v-bind:key="flightplan.id"
                     class="rounded-lg flex cursor-pointer border p-3 hover:bg-blue-950 text-white bg-gray-800">
-                        <Link :href="`/flightplanner/${flightplan.id}`">
+                        <Link :href="`/flightplans/routes/${flightplan.id}`">
                             <div class="flex">
                                 <ClipboardList class=" mr-5"/> {{ flightplan.name }}
                             </div>
