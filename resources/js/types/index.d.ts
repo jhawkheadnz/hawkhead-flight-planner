@@ -36,4 +36,53 @@ export interface User {
     updated_at: string;
 }
 
+export interface FlightPlan {
+    id: number;
+    name: string;
+    description: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface FlightPlanRoute {
+    id: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Checklist {
+    id: number;
+    checklist_group_id: number;
+    user_id: number;
+    name: string;
+    description: string;
+    order: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface ChecklistItem {
+    id: number;
+    checklist_id: number;
+    user_id: number;
+    title:string;
+    description: string;
+    is_visible: boolean;
+    order: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface ChecklistGroup {
+    id:number;
+    user_id:number;
+    name:string;
+    description:string;
+    tag_name: string;
+    order: number;
+    created_at: string;
+    updated_at: string;
+}
+
+
 export type BreadcrumbItemType = BreadcrumbItem;

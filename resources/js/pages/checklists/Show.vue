@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
+import { Checklist, ChecklistGroup, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { ClipboardList } from 'lucide-vue-next';
 import PlaceholderPattern from '../../components/PlaceholderPattern.vue';
 
-defineProps({ checklists: Array, checklist_group: Object, tag_name: String });
+defineProps<{
+    checklists: Array<Checklist>;
+    checklist_group: ChecklistGroup;
+}>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -27,7 +30,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <p>{{  }}</p>
                 
                 <ul v-for="checklist in checklists" class="rounded-lg flex cursor-pointer border p-3 hover:bg-blue-950 text-white bg-gray-800">
-                    <Link  :href="`/checklists/view/${tag_name}/${checklist.id}`">
+                    <Link  :href="`/checklists/view/${checklist_group.tag_name}/${checklist.id}`">
                         <li>
                             <span>{{ checklist.name }}</span> <span class="text-gray-500"> - {{  checklist.description }}</span>
                         </li> 

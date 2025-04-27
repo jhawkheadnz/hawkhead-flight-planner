@@ -1,43 +1,45 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { ChecklistGroup, type BreadcrumbItem } from '@/types';
+import { FlightPlan, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { ClipboardList } from 'lucide-vue-next';
-import PlaceholderPattern from '../../components/PlaceholderPattern.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Checklists',
-        href: '/checklists',
+        title: 'Flight Plans',
+        href: '/flightplans',
     },
 ];
 
+
+
+//defineProps({ "flightplans" : Array });
 defineProps<{
-    checklist_groups: Array<ChecklistGroup>
+    flightplans: Array<FlightPlan>;
 }>();
 
 </script>
 
 <template>
-    <Head title="Checklists" />
+    <Head title="Flight Plans" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             
             <div>
                 
-                <div class="text-lg font-extrabold text-blue-800 pb-3">Checklists</div>
+                <div class="text-lg font-extrabold text-blue-800 pb-3">Flight Plans</div>
                 
                 <ul>
-                    <li v-for="checklist_group in checklist_groups" class="rounded-lg flex cursor-pointer border p-3 hover:bg-blue-950 text-white bg-gray-800">
-                        <Link :href="`/checklists/view/${checklist_group.tag_name}`">
+                    <li v-for="flightplan in flightplans" class="rounded-lg flex cursor-pointer border p-3 hover:bg-blue-950 text-white bg-gray-800">
+                        <Link :href="`/flightplanner/${flightplan.id}`">
                             <div class="flex">
-                                <ClipboardList class=" mr-5"/> {{ checklist_group.name }}
+                                <ClipboardList class=" mr-5"/> {{ flightplan.name }}
                             </div>
                         </Link>
                     </li>
                 </ul>
-
+                
             </div>
 
         </div>
