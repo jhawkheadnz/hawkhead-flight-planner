@@ -10,4 +10,6 @@ class FlightPlan extends Model
     /** @use HasFactory<\Database\Factories\FlightPlanFactory> */
     use HasFactory;
 
+    protected $guarded = [];
+
 }

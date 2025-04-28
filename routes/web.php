@@ -21,9 +21,12 @@ Route::get('checklists/view/{tag_name}/{checklist}', [ChecklistItemController::c
 
 // Flight Planning Routes
 Route::get('flightplans', [FlightPlanController::class, "index"])->middleware(['auth', 'verified'])->name("flightplans"); // display all flight plans
-Route::get('flightplans/routes/{id}', [FlightRouteController::class, "index"])->middleware(['auth', 'verified'])->name("flightplan.routes");
+Route::get('flightplans/create', [FlightPlanController::class, "create"])->middleware(['auth', 'verified'])->name("flightplan.create");
+Route::post('flightplans/create', [FlightPlanController::class, "store"])->middleware(['auth', 'verified'])->name("flightplan.store");
+Route::delete('flightplans/{id}', [FlightPlanController::class, "destroy"])->middleware(['auth', 'verified'])->name("flightplan.destroy");
 
 // Flight Route
+Route::get('flightplans/routes/{id}', [FlightRouteController::class, "index"])->middleware(['auth', 'verified'])->name("flightplan.routes");
 Route::get('flightroute/{flight_route}', [FlightRouteController::class, "show"])->middleware(['auth', 'verified'])->name("flight_route");
 Route::put('flightroute', [FlightRouteController::class, "update"])->middleware(['auth', 'verified'])->name("flightroute.confirm");
 
