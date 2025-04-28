@@ -9,4 +9,6 @@ class FlightRoute extends Model
 {
     /** @use HasFactory<\Database\Factories\FlightRouteFactory> */
     use HasFactory;
+
+    public $guarded = [];
 }

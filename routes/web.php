@@ -21,11 +21,11 @@ Route::get('checklists/view/{tag_name}/{checklist}', [ChecklistItemController::c
 
 // Flight Planning Routes
 Route::get('flightplans', [FlightPlanController::class, "index"])->middleware(['auth', 'verified'])->name("flightplans"); // display all flight plans
-Route::get('flightplans/routes/{id}', [FlightRouteController::class, "index"])->middleware(['auth', 'verified'])->name("flight_routes");
+Route::get('flightplans/routes/{id}', [FlightRouteController::class, "index"])->middleware(['auth', 'verified'])->name("flightplan.routes");
 
 // Flight Route
 Route::get('flightroute/{flight_route}', [FlightRouteController::class, "show"])->middleware(['auth', 'verified'])->name("flight_route");
-Route::post('flightroute/{flight_route}', [FlightRouteController::class, "update"])->middleware(['auth', 'verified'])->name("flightroute.confirm");
+Route::put('flightroute', [FlightRouteController::class, "update"])->middleware(['auth', 'verified'])->name("flightroute.confirm");
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

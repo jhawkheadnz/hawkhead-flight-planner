@@ -62,9 +62,10 @@ td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid
                         <th>Zone Fuel</th>
                     </tr>
                     <tr v-for="flightroute in flightroutes" v-bind:key="flightroute.id">
+                        <td><Link :href="`/flightroute/${flightroute.id}`">{{ flightroute.from }}</Link></td>
                         <td><Link :href="`/flightroute/${flightroute.id}`">{{ flightroute.to }}</Link></td>
                         <td>{{ flightroute.airspeed_cas }} kt</td>
-                        <td>{{ flightroute.temp_c }}°c</td>
+                        <td>{{ flightroute.temp_c }} °c</td>
                         <td>{{ flightroute.altitude.toLocaleString() }} ft</td>
                         <td>{{ flightroute.airspeed_tas }} kt</td>
                         <td>{{ flightroute.track }} °T</td>
@@ -77,7 +78,7 @@ td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid
                         <td>{{ flightroute.heading_compass }} °C</td>
                         <td>{{ flightroute.ground_speed }} kt</td>
                         <td>{{ flightroute.distance }} nm</td>
-                        <td>{{ flightroute.time }} min</td>
+                        <td>{{ flightroute.time }} min(s)</td>
                         <td style="font-family: 'Courier New', Courier, monospace;">{{ flightroute.eta }}Z</td>
                         <td>{{ flightroute.fuel_consumption }} L/hr</td>
                         <td>{{ flightroute.zone_fuel }}</td>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Checklist, ChecklistGroup, FlightRoute, type BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Checklist, ChecklistGroup, FlightRoute, SharedData, type BreadcrumbItem } from '@/types';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import { Input } from '@/components/ui/input';
 import Button from '@/components/ui/button/Button.vue';
 import { LoaderCircle } from 'lucide-vue-next';
@@ -21,19 +21,40 @@ const props = defineProps<{
 }>();
 
 const form = useForm({
-    
+    flight_route: props.flightroute.id,
+    flight_plan_id: props.flightroute.flight_plan_id,
+    from: props.flightroute.from,
+    to: props.flightroute.to,
+    airspeed_cas: props.flightroute.airspeed_cas,
+    temp_c: props.flightroute.temp_c,
+    altitude: props.flightroute.altitude,
+    airspeed_tas: props.flightroute.airspeed_tas,
+    track: props.flightroute.track,
+    wind_true: props.flightroute.wind_true,
+    wind_speed: props.flightroute.wind_speed,
+    heading_true: props.flightroute.heading_true,
+    variation: props.flightroute.variation,
+    heading_magnetic: props.flightroute.heading_magnetic,
+    deviation: props.flightroute.deviation,
+    heading_compass: props.flightroute.heading_compass,
+    ground_speed: props.flightroute.ground_speed,
+    distance: props.flightroute.distance,
+    time: props.flightroute.time,
+    eta: props.flightroute.eta,
+    fuel_consumption: props.flightroute.fuel_consumption,
+    zone_fuel: props.flightroute.zone_fuel
 });
 
 const submit = () => {
 
     //console.log(props.flightroute);
 
-    form.post(route("flightroute.confirm"), {
+    form.put(route("flightroute.confirm"), {
+        preserveScroll: true,
+        onSuccess: () => {  },
 
     });
 }
-
-console.log(props.flightroute);
 
 </script>
 
@@ -53,65 +74,65 @@ td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid
                 <table class="w-[300px]">
                     <tr>
                         <th>FROM</th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.from" id="from" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0" v-model="form.from" id="from" required type="text" /></td>
                     </tr>
                     <tr>
                         <th>TO</th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.to" id="to" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0" v-model="form.to" id="to" required type="text" /></td>
                     </tr><tr>
                         <th>CAS <span class="text-blue-400">kt</span></th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.airspeed_cas" id="airspeed_cas" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.airspeed_cas" id="airspeed_cas" required type="text" /></td>
                     </tr><tr>
                         <th>TEMP <span class="text-blue-400">°C</span></th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.temp_c" id="temp_c" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.temp_c" id="temp_c" required type="text" /></td>
                     </tr><tr>
                         <th>ALT <span class="text-blue-400">ft</span></th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.altitude" id="altitude" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.altitude" id="altitude" required type="text" /></td>
                     </tr><tr>                        
                         <th>TAS <span class="text-blue-400">kt</span></th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.airspeed_tas" id="airspeed_tas" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.airspeed_tas" id="airspeed_tas" required type="text" /></td>
                     </tr><tr>                        
                         <th>Track</th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.track" id="track" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.track" id="track" required type="text" /></td>
                     </tr><tr>
                         <th>Wind <span class="text-blue-400">°T</span></th>
-                        <td class="bg-gray-200"><Input class="w-[120px] p-1 m-0" v-model="flightroute.wind_true" id="wind_true" required type="text" /></td>
+                        <td class="bg-gray-200"><Input class="w-[120px] p-1 m-0"v-model="form.wind_true" id="wind_true" required type="text" /></td>
                     </tr><tr>                        
                         <th>Wind <span class="text-blue-400">kt</span></th>
-                        <td class="bg-gray-200"><Input class="w-[120px] p-1 m-0" v-model="flightroute.wind_speed" id="wind_speed" required type="text" /></td>
+                        <td class="bg-gray-200"><Input class="w-[120px] p-1 m-0"v-model="form.wind_speed" id="wind_speed" required type="text" /></td>
                     </tr><tr>                        
                         <th>HDG <span class="text-blue-400">°T</span></th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.heading_true" id="heading_true" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.heading_true" id="heading_true" required type="text" /></td>
                     </tr><tr>                        
                         <th>VAR</th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.variation" id="variation" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.variation" id="variation" required type="text" /></td>
                     </tr><tr>                        
                         <th>HDG <span class="text-blue-400">°M</span></th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.heading_magnetic" id="heading_magnetic" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.heading_magnetic" id="heading_magnetic" required type="text" /></td>
                     </tr><tr>                        
                         <th>DEV</th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.deviation" id="deviation" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.deviation" id="deviation" required type="text" /></td>
                     </tr><tr>                        
                         <th>HDG <span class="text-blue-400">°C</span></th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.heading_compass" id="heading_compass" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.heading_compass" id="heading_compass" required type="text" /></td>
                     </tr><tr>                        
                         <th>G/S <span class="text-blue-400">kt</span></th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.ground_speed" id="ground_speed" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.ground_speed" id="ground_speed" required type="text" /></td>
                     </tr><tr>                        
                         <th>Dist <span class="text-blue-400">(nm)</span></th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.distance" id="distance" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.distance" id="distance" required type="text" /></td>
                     </tr><tr>                        
                         <th>Time <span class="text-blue-400">(min)</span></th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.time" id="time" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.time" id="time" required type="text" /></td>
                     </tr><tr>                        
                         <th>ETA</th>
-                        <td style="font-family: 'Courier New', Courier, monospace;"><Input class="w-[120px] p-1 m-0" v-model="flightroute.eta" id="eta" required type="text" /></td>
+                        <td style="font-family: 'Courier New', Courier, monospace;"><Input class="w-[120px] p-1 m-0"v-model="form.eta" id="eta" required type="text" /></td>
                     </tr><tr>                        
                         <th>Fuel Cons</th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.fuel_consumption" id="fuel_consumption" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.fuel_consumption" id="fuel_consumption" required type="text" /></td>
                     </tr><tr>                        
                         <th>Zone Fuel</th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="flightroute.zone_fuel" id="zone_fuel" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.zone_fuel" id="zone_fuel" required type="text" /></td>
                     </tr>
                 </table>
 
