@@ -30,6 +30,14 @@ class FlightPlanController extends Controller
 
     }
 
+    public function edit($flightplan_id){
+
+        $flightPlan = FlightPlan::find($flightplan_id);
+
+        return Inertia::render("flightplans/Edit", ['flightplan' => $flightPlan]);
+
+    }
+
     public function store(Request $request){
 
         FlightPlan::create([
@@ -41,19 +49,26 @@ class FlightPlanController extends Controller
 
     }
 
-    public function update(Request $request){
+    public function update($flightplan){
 
-        $flightPlan = FlightPlan::find($request->id);
+        $flightPlan = FlightPlan::find($flightplan);
+
+        //dd($flightPlan);
+
+        dd($flightplan);
+
         $flightPlan->update([
-            'name' => $request->name,
-            'description' => $request->description
+            'name' => $flightplan->name,
+            'description' => $flightplan->description
         ]);
+
+        return to_route("flightplans");
 
     }
 
     public function destroy(Request $request){
 
-        FlightPlan::deleteOrThrow($request->id);
+        FlightPlan::destroy($request->id);
 
         return to_route("flightplans");
 
