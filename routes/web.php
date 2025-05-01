@@ -23,7 +23,7 @@ Route::get('checklists/view/{tag_name}/{checklist}', [ChecklistItemController::c
 Route::get('flightplans', [FlightPlanController::class, "index"])->middleware(['auth', 'verified'])->name("flightplans"); // display all flight plans
 Route::get('flightplans/create', [FlightPlanController::class, "create"])->middleware(['auth', 'verified'])->name("flightplan.create");
 Route::get('flightplans/{flightplan_id}/edit', [FlightPlanController::class, "edit"])->middleware(['auth'], ['verified'])->name("flightplan.edit");
-Route::put('flightplans/{flightplan}/update', [FlightPlanController::class, "update"])->middleware(['auth'], ['verified'])->name("flightplan.update");
+Route::put('flightplans/{id}/update', [FlightPlanController::class, "update"])->middleware(['auth'], ['verified'])->name("flightplan.update");
 Route::post('flightplans/create', [FlightPlanController::class, "store"])->middleware(['auth', 'verified'])->name("flightplan.store");
 Route::delete('flightplans/{id}', [FlightPlanController::class, "destroy"])->middleware(['auth', 'verified'])->name("flightplan.destroy");
 

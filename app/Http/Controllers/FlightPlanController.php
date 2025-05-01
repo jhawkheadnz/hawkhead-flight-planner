@@ -49,17 +49,14 @@ class FlightPlanController extends Controller
 
     }
 
-    public function update($flightplan){
+    public function update(Request $request){
 
-        $flightPlan = FlightPlan::find($flightplan);
-
-        //dd($flightPlan);
-
-        dd($flightplan);
+        //dd($request);
+        $flightPlan = FlightPlan::find($request->flightplan_id);
 
         $flightPlan->update([
-            'name' => $flightplan->name,
-            'description' => $flightplan->description
+            'name' => $request->name,
+            'description' => $request->description
         ]);
 
         return to_route("flightplans");
