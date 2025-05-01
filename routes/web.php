@@ -28,9 +28,11 @@ Route::post('flightplans/create', [FlightPlanController::class, "store"])->middl
 Route::delete('flightplans/{id}', [FlightPlanController::class, "destroy"])->middleware(['auth', 'verified'])->name("flightplan.destroy");
 
 // Flight Route
+Route::get('flightplans/routes/{flightplan}/create', [FlightRouteController::class, "create"])->middleware(['auth', 'verified'])->name("flightroute.create");
 Route::get('flightplans/routes/{id}', [FlightRouteController::class, "index"])->middleware(['auth', 'verified'])->name("flightplan.routes");
 Route::get('flightroute/{flight_route}', [FlightRouteController::class, "show"])->middleware(['auth', 'verified'])->name("flight_route");
 Route::put('flightroute', [FlightRouteController::class, "update"])->middleware(['auth', 'verified'])->name("flightroute.confirm");
+Route::post('flightroute/create', [FlightRouteController::class, "store"])->middleware(['auth', 'verified'])->name("flightroute.store");
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
