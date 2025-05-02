@@ -33,6 +33,7 @@ Route::get('flightplans/routes/{id}', [FlightRouteController::class, "index"])->
 Route::get('flightroute/{flight_route}', [FlightRouteController::class, "edit"])->middleware(['auth', 'verified'])->name("flight_route");
 Route::put('flightroute', [FlightRouteController::class, "update"])->middleware(['auth', 'verified'])->name("flightroute.confirm");
 Route::post('flightroute/create', [FlightRouteController::class, "store"])->middleware(['auth', 'verified'])->name("flightroute.store");
+Route::delete('flightroute/{id}', [FlightRouteController::class, "destroy"])->middleware(['auth', 'verified'])->name("flightroute.destroy");
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

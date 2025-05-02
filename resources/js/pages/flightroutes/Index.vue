@@ -2,7 +2,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { FlightPlan, FlightRoute, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { ClipboardList, PlusCircle } from 'lucide-vue-next';
+import { ClipboardList, MinusCircle, PlusCircle } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -62,6 +62,7 @@ td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid
                         <th>ETA</th>
                         <th>Fuel Cons</th>
                         <th>Zone Fuel</th>
+                        <th>Modify</th>
                     </tr>
                     <tr v-for="flightroute in flightroutes" v-bind:key="flightroute.id">
                         <td><Link :href="`/flightroute/${flightroute.id}`">{{ flightroute.from }}</Link></td>
@@ -84,6 +85,7 @@ td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid
                         <td style="font-family: 'Courier New', Courier, monospace;">{{ flightroute.eta }}Z</td>
                         <td>{{ flightroute.fuel_consumption }} L/hr</td>
                         <td>{{ flightroute.zone_fuel }}</td>
+                        <td><Link class="cursor-pointer" method="delete" :href="route('flightroute.destroy', flightroute.id)"><MinusCircle height="15" color="red" /></Link></td>
                     </tr>
                 </table>
 

@@ -158,4 +158,17 @@ class FlightRouteController extends Controller
         return to_route("flightplan.routes", ['id' => $request->flight_plan_id ]);
 
     }
+
+    public function destroy(Request $request){
+
+        //Get the current flight plan of deletion
+        $flightRoute = FlightRoute::find($request->id);
+        $flightPlanId = $flightRoute->flight_plan_id;
+
+        FlightRoute::destroy($request->id);
+
+        return to_route("flightplan.routes", $flightPlanId);
+
+    }
+
 }
