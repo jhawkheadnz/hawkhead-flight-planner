@@ -25,13 +25,13 @@ class FlightRouteController extends Controller
 
     }
 
-    public function show($flight_route){
+    public function edit($flight_route){
 
         $flightRoute = FlightRoute::find($flight_route);
 
         //dd($flightRoute);
 
-        return Inertia::render("flightroutes/Show", [
+        return Inertia::render("flightroutes/Edit", [
             'flightroute' => $flightRoute
         ]);
 

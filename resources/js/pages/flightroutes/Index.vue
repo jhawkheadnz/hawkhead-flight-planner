@@ -2,7 +2,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { FlightPlan, FlightRoute, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { ClipboardList } from 'lucide-vue-next';
+import { ClipboardList, PlusCircle } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -37,6 +37,8 @@ td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid
                 
                 <div class="text-lg font-extrabold text-blue-800 pb-3">Flight Plan - Route ({{ flightplan.name }})</div>
                 <p class="text-sm mb-7"><span class="font-extrabold">About this flight:</span> {{ flightplan.description }}</p>
+
+                <div class="mb-5"><Link class="px-4 py-2 bg-blue-800 text-white" :href="`/flightplans/routes/${flightplan.id}/create`"> + Add Route Entry</Link></div>
 
                 <table class="w-[100%]">
                     <tr>

@@ -4,7 +4,7 @@ import { Checklist, ChecklistGroup, FlightRoute, SharedData, type BreadcrumbItem
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import { Input } from '@/components/ui/input';
 import Button from '@/components/ui/button/Button.vue';
-import { LoaderCircle } from 'lucide-vue-next';
+import { ChevronsLeft, LoaderCircle, StepBack } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -56,6 +56,58 @@ const submit = () => {
     });
 }
 
+function updateVariation(e : Event){
+
+const var_val = (e.target as HTMLInputElement).value;
+const var_letter = var_val[var_val.length - 1];
+const var_amount = var_val.replace(var_letter, "");
+const var_amount_num = Number.parseInt(var_amount);
+const heading_true = parseInt(form.heading_true.toString());
+const variation = parseInt(var_amount_num.toString());
+
+var variation_result = 0;
+
+if(var_letter == "W"){ // west is best (add variation)
+    variation_result = (heading_true + variation) % 360;
+}
+
+if(var_letter == "E"){ // east is least (subtract variation) 
+    variation_result = (heading_true - variation) % 360;
+
+    if(variation_result < 0)
+        variation_result = variation_result + 360;
+}
+
+form.heading_magnetic = variation_result;
+
+}
+
+function updateDeviation(e : Event){
+
+const var_val = (e.target as HTMLInputElement).value;
+const var_letter = var_val[var_val.length - 1];
+const var_amount = var_val.replace(var_letter, "");
+const var_amount_num = Number.parseInt(var_amount);
+const heading_magnetic = parseInt(form.heading_magnetic.toString());
+const variation = parseInt(var_amount_num.toString());
+
+var variation_result = 0;
+
+if(var_letter == "W"){ // west is best (add variation)
+    variation_result = (heading_magnetic + variation) % 360;
+}
+
+if(var_letter == "E"){ // east is least (subtract variation) 
+    variation_result = (heading_magnetic - variation) % 360;
+
+    if(variation_result < 0)
+        variation_result = variation_result + 360;
+}
+
+form.heading_compass = variation_result;
+
+}
+
 </script>
 
 <style>
@@ -71,7 +123,7 @@ td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div>
                 <form @submit.prevent="submit">
-                <table class="w-[300px]">
+                <table class="w-[600px]">
                     <tr>
                         <th>FROM</th>
                         <td><Input class="w-[120px] p-1 m-0" v-model="form.from" id="from" required type="text" /></td>
@@ -105,16 +157,16 @@ td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid
                         <td><Input class="w-[120px] p-1 m-0"v-model="form.heading_true" id="heading_true" required type="text" /></td>
                     </tr><tr>                        
                         <th>VAR</th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.variation" id="variation" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.variation" id="variation" @input="updateVariation" required type="text"  /></td>
                     </tr><tr>                        
                         <th>HDG <span class="text-blue-400">°M</span></th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.heading_magnetic" id="heading_magnetic" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.heading_magnetic" id="heading_magnetic" required type="text" readonly/></td>
                     </tr><tr>                        
                         <th>DEV</th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.deviation" id="deviation" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.deviation" id="deviation" @input="updateDeviation" required type="text"  /></td>
                     </tr><tr>                        
                         <th>HDG <span class="text-blue-400">°C</span></th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.heading_compass" id="heading_compass" required type="text" /></td>
+                        <td><Input class="w-[120px] p-1 m-0"v-model="form.heading_compass" id="heading_compass" required type="text" readonly/></td>
                     </tr><tr>                        
                         <th>G/S <span class="text-blue-400">kt</span></th>
                         <td><Input class="w-[120px] p-1 m-0"v-model="form.ground_speed" id="ground_speed" required type="text" /></td>
@@ -136,12 +188,16 @@ td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid
                     </tr>
                 </table>
 
-                <Button type="submit" class="my-5 bg-amber-500">
-                    
-                    <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                    Update Route
-
-                </Button>
+                <div class="gap-x-5 w-[600px] pt-3.5">
+                    <Button type="submit" class=" bg-amber-500">
+                        <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
+                        Update Route
+                    </Button>
+                    <Button type="button" class="float-right" @click="`/flightplans/routes/${props.flightroute.flight_plan_id}`">
+                        <ChevronsLeft class="h-4 w-4"/> 
+                        Back to Flight Plan Route
+                    </Button>
+                </div>
                 </form>                
             </div>
         </div>
