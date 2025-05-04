@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
+import { onMounted, ref } from 'vue';
+import { columns  } from './columns';
+import dataTable from './data-table.vue';
 import { FlightPlan, FlightRoute, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { ClipboardList, MinusCircle, PlusCircle } from 'lucide-vue-next';
+import { MinusCircle } from 'lucide-vue-next';
+import Button from '@/components/ui/button/Button.vue';
+
+const data = ref<FlightRoute[]>([]);
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -11,21 +17,26 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-
-
-//defineProps({ "flightplans" : Array });
-defineProps<{
-    flightroutes: Array<FlightRoute>;
-    flightplan: FlightPlan;
+const props = defineProps<{
+        flightroutes: Array<FlightRoute>;
+        flightplan: FlightPlan;
 }>();
+
+async function getData() : Promise<FlightRoute[]> {
+    return props.flightroutes;
+}
+
+onMounted(async() => {
+    data.value = await getData()
+});
 
 </script>
 
-<style>
+<!-- <style>
 table {border-left:1px solid #c2c2c2;}
 th {text-align: center; background: #020c2b; font-size: 11px; padding: 5px; color: #fff; }
 td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid #c2c2c2; padding:4px; font-size:12px; }
-</style>
+</style> -->
 
 <template>
     <Head title="Flight Plans" />
@@ -40,7 +51,7 @@ td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid
 
                 <div class="mb-5"><Link class="px-4 py-2 bg-blue-800 text-white" :href="`/flightplans/routes/${flightplan.id}/create`"> + Add Route Entry</Link></div>
 
-                <table class="w-[100%]">
+                <!-- <table class="w-[100%]">
                     <tr>
                         <th>FROM</th>
                         <th>TO</th>
@@ -87,10 +98,13 @@ td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid
                         <td>{{ flightroute.zone_fuel }}</td>
                         <td><Link class="cursor-pointer" method="delete" :href="route('flightroute.destroy', flightroute.id)"><MinusCircle height="15" color="red" /></Link></td>
                     </tr>
-                </table>
+                </table> -->
 
-            </div>
-              
+                <div class="container ">
+                    <dataTable :columns="columns" :data="data" />
+                </div>
+
+            </div>              
 
         </div>
     </AppLayout>
