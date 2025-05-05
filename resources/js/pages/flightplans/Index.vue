@@ -21,22 +21,6 @@ const form = useForm({
     flight_plan_id: -1,
 });
 
-const removeFlightPlan = () => {
-
-    console.log(form.flight_plan_id);
-
-    if(confirm("You are about to delete this flight plan")){
-        console.log("delete the flight plan");
-    }else{
-        console.log("keep the flight plan");
-    }
-
-    // form.delete(route("flightroute.delete"), {
-
-    // });
-
-}
-
 </script>
 
 <template>

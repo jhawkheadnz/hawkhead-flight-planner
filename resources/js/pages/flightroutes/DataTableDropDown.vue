@@ -21,7 +21,7 @@ function copy(id : any){
 }
 
 function route_delete(id : string){
-    console.log("Delete this flight route");
+    console.log("Delete this flight route: " + id);
 }
 </script>
 
@@ -39,7 +39,7 @@ function route_delete(id : string){
                 <EditIcon /> Edit route
             </DropdownMenuItem>
             <DropdownMenuItem @click="$emit('expand')">
-                <Newspaper /> Summerize
+                <Newspaper /> Detailed Overview
             </DropdownMenuItem>
             <DropdownMenuItem @click="route_delete(flightroute.id.toString())">
                 <Trash />
