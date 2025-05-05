@@ -7,6 +7,7 @@ import { FlightPlan, FlightRoute, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { MinusCircle } from 'lucide-vue-next';
 import Button from '@/components/ui/button/Button.vue';
+import { RouteIcon } from 'lucide-vue-next';
 
 const data = ref<FlightRoute[]>([]);
 
@@ -46,10 +47,14 @@ td {text-align:center; border-bottom: 1px solid #c2c2c2; border-right: 1px solid
             
             <div>
                 
-                <div class="text-lg font-extrabold text-blue-800 pb-3">Flight Plan - Route ({{ flightplan.name }})</div>
+                <div class="text-lg font-extrabold text-blue-800 pb-3 flex"><RouteIcon class="mr-3" /> Flight Plan - Route ({{ flightplan.name }})</div>
                 <p class="text-sm mb-7"><span class="font-extrabold">About this flight:</span> {{ flightplan.description }}</p>
 
-                <div class="mb-5"><Link class="px-4 py-2 bg-blue-800 text-white" :href="`/flightplans/routes/${flightplan.id}/create`"> + Add Route Entry</Link></div>
+                <div class="mb-5">
+                    <Button as-child>
+                        <Link :href="`/flightplans/routes/${flightplan.id}/create`"> + Add Route Entry</Link>
+                    </Button>
+                </div>
 
                 <!-- <table class="w-[100%]">
                     <tr>

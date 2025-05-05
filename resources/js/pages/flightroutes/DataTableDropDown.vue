@@ -5,7 +5,7 @@ import DropdownMenuItem from '@/components/ui/dropdown-menu/DropdownMenuItem.vue
 import DropdownMenuLabel from '@/components/ui/dropdown-menu/DropdownMenuLabel.vue';
 import DropdownMenuTrigger from '@/components/ui/dropdown-menu/DropdownMenuTrigger.vue';
 import { FlightRoute } from '@/types';
-import { MoreHorizontal } from 'lucide-vue-next';
+import { ChevronsLeft, ChevronsRight, Clipboard, EditIcon, MoreHorizontal, Newspaper, Trash } from 'lucide-vue-next';
 
 defineProps<{
     flightroute: FlightRoute
@@ -34,15 +34,19 @@ function route_delete(id : string){
             </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem @click="copy(flightroute.id.toString())">
-                Copy flightroute ID
+            <DropdownMenuLabel class="flex font-extrabold text-center">Actions</DropdownMenuLabel>
+            <DropdownMenuItem>
+                <EditIcon /> Edit route
             </DropdownMenuItem>
             <DropdownMenuItem @click="$emit('expand')">
-                Summerize
+                <Newspaper /> Summerize
             </DropdownMenuItem>
             <DropdownMenuItem @click="route_delete(flightroute.id.toString())">
+                <Trash />
                 Delete Route
+            </DropdownMenuItem>
+            <DropdownMenuItem @click="copy(flightroute.id.toString())">
+                <Clipboard/> Copy flightroute ID
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>

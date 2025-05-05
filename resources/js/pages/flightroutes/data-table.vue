@@ -47,8 +47,7 @@ import { valueUpdater } from '@/components/ui/table/utils';
                         </TableRow>
                         <TableRow v-if="row.getIsExpanded()">
                             <TableCell :colspan="row.getAllCells().length">
-                                <!-- {{ JSON.stringify(row.original) }} -->
-                                Something here explaining the route in more detail....
+                                <strong>Route Summary for ({{ row.original.from }} to {{ row.original.to }})</strong>
                             </TableCell>
                         </TableRow>
                     </template>
