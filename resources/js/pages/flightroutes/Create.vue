@@ -5,6 +5,9 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { FlightPlan, FlightRoute, type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ChevronsLeft, LoaderCircle } from 'lucide-vue-next';
+import Table from '@/components/ui/table/Table.vue';
+import TableRow from '@/components/ui/table/TableRow.vue';
+import TableCell from '@/components/ui/table/TableCell.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -32,7 +35,7 @@ const form = useForm({
     wind_true: 0,
     wind_speed: 0,
     heading_true: 0,
-    variation: '2E',
+    variation: '22E',
     heading_magnetic: 0,
     deviation: '1W',
     heading_compass: 0,
@@ -51,6 +54,11 @@ const submit = () => {
 
     });
 
+}
+
+function backToFlightPlan(id : number){
+   //window.location.href = './flightplans/routes/' + id.toString();
+   window.location.href = (route("flightplan.routes", id));
 }
 
 function updateVariation(e : Event){
@@ -115,79 +123,168 @@ function updateDeviation(e : Event){
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             
             <div>
-                
-                <div class="text-lg font-extrabold text-blue-800 pb-3">Route Info</div>
                                 
                 <form @submit.prevent="submit">
-                <table class="w-[600px]">
-                    <tr>
-                        <th>FROM</th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="form.from" id="from" required type="text" /></td>
-                        <th>TO</th>
-                        <td><Input class="w-[120px] p-1 m-0" v-model="form.to" id="to" required type="text" /></td>
-                    </tr><tr>
-                        <th>CAS <span class="text-blue-400">kt</span></th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.airspeed_cas" id="airspeed_cas" required type="text" /></td>
-                    
-                        <th>TEMP <span class="text-blue-400">°C</span></th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.temp_c" id="temp_c" required type="text" /></td>
-                    </tr><tr>
-                        <th>ALT <span class="text-blue-400">ft</span></th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.altitude" id="altitude" required type="text" /></td>
-                                         
-                        <th>TAS <span class="text-blue-400">kt</span></th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.airspeed_tas" id="airspeed_tas" required type="text" /></td>
-                    </tr><tr>                        
-                        <th>Track</th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.track" id="track" required type="text" /></td>
-                    
-                        <th>Wind <span class="text-blue-400">°T</span></th>
-                        <td class="bg-gray-200"><Input class="w-[120px] p-1 m-0"v-model="form.wind_true" id="wind_true" required type="text" /></td>
-                    </tr><tr>                        
-                        <th>Wind <span class="text-blue-400">kt</span></th>
-                        <td class="bg-gray-200"><Input class="w-[120px] p-1 m-0"v-model="form.wind_speed" id="wind_speed" required type="text" /></td>
-                                           
-                        <th>HDG <span class="text-blue-400">°T</span></th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.heading_true" id="heading_true" required type="text" /></td>
-                    </tr><tr>                        
-                        <th>VAR</th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.variation" id="variation" @input="updateVariation" required type="text" /></td>
-                                          
-                        <th>HDG <span class="text-blue-400">°M</span></th>
-                        <td><Input class="bg-gray-200 w-[120px] p-1 m-0"v-model="form.heading_magnetic" id="heading_magnetic" required type="text" readonly /></td>
-                    </tr><tr>                        
-                        <th>DEV</th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.deviation" id="deviation" @input="updateDeviation" required type="text" /></td>
-                                          
-                        <th>HDG <span class="text-blue-400">°C</span></th>
-                        <td><Input class="bg-gray-200 w-[120px] p-1 m-0"v-model="form.heading_compass" id="heading_compass" required type="text" readonly /></td>
-                    </tr><tr>                        
-                        <th>G/S <span class="text-blue-400">kt</span></th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.ground_speed" id="ground_speed" required type="text" /></td>
-                                          
-                        <th>Dist <span class="text-blue-400">(nm)</span></th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.distance" id="distance" required type="text" /></td>
-                    </tr><tr>                        
-                        <th>Time <span class="text-blue-400">(min)</span></th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.time" id="time" required type="text" /></td>
-                                           
-                        <th>ETA (Z) UTC</th>
-                        <td style="font-family: 'Courier New', Courier, monospace;"><Input class="w-[120px] p-1 m-0"v-model="form.eta" id="eta" required type="text" /></td>
-                    </tr><tr>                        
-                        <th>Fuel Cons</th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.fuel_consumption" id="fuel_consumption" required type="text" /></td>
-                                          
-                        <th>Zone Fuel</th>
-                        <td><Input class="w-[120px] p-1 m-0"v-model="form.zone_fuel" id="zone_fuel" required type="text" /></td>
-                    </tr>
-                </table>
+                    <Table class="w-[600px]">
+                        <TableRow>
+                            <TableCell :colspan="4" class="text-lg bg-blue-950 text-white rounded-tl-md rounded-tr-md">
+                                Add Route to Flight Plan
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                From
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0" v-model="form.from" id="from" required type="text" />
+                            </TableCell>
+                            <TableCell>
+                                To
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0" v-model="form.to" id="to" required type="text" />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                Latitude<br/> 
+                                <em class="text-xs text-green-500">Optional</em>
+                            </TableCell>
+                            <TableCell><Input class="w-[120px] p-1 m-0" type="text" /></TableCell>
+                            <TableCell>
+                                Longitude<br/>
+                                <em class="text-xs text-green-500">Optional</em>
+                            </TableCell>
+                            <TableCell><Input class="w-[120px] p-1 m-0" type="text" /></TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                CAS kt
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.airspeed_cas" id="airspeed_cas" required type="text" />
+                            </TableCell>
+                            <TableCell>
+                                Temp °C
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.temp_c" id="temp_c" required type="text" />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                Altitude (ft)
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.altitude" id="altitude" required type="text" />
+                            </TableCell>
+                            <TableCell>
+                                TAS kt
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.airspeed_tas" id="airspeed_tas" required type="text" />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                Track °T
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.track" id="track" required type="text" />
+                            </TableCell>
+                            <TableCell>
+                                Wind Direction °T
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.wind_true" id="wind_true" required type="text" />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                Wind Speed kt
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.wind_speed" id="wind_speed" required type="text" />
+                            </TableCell>
+                            <TableCell>
+                                (True) Heading °T
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.heading_true" id="heading_true" required type="text" />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Variation</TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.variation" id="variation" @input="updateVariation" required type="text" />
+                            </TableCell>
+                            <TableCell>
+                                (Magnetic) Heading °M<br/>
+                                <em class="text-xs">Automatic</em>
+                            </TableCell>
+                            <TableCell>
+                                <Input class="bg-gray-200 w-[120px] p-1 m-0"v-model="form.heading_magnetic" id="heading_magnetic" required type="text" readonly />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Deviation</TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.deviation" id="deviation" @input="updateDeviation" required type="text" />
+                            </TableCell>
+                            <TableCell>
+                                (Compass) Heading °C<br/>
+                                <em class="text-xs">Automatic</em>
+                            </TableCell>
+                            <TableCell>
+                                <Input class="bg-gray-200 w-[120px] p-1 m-0"v-model="form.heading_compass" id="heading_compass" required type="text" readonly />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                Ground Speed (kt)
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.ground_speed" id="ground_speed" required type="text" />
+                            </TableCell>
+                            <TableCell>
+                                Distance (nm)
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.distance" id="distance" required type="text" />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Time (hh:mm)</TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.time" id="time" required type="text" />
+                            </TableCell>
+                            <TableCell>ETA (Zulu)</TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.eta" id="eta" required type="text" />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                Fuel Consumption
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.fuel_consumption" id="fuel_consumption" required type="text" />
+                            </TableCell>
+                            <TableCell>
+                                Zone Fuel
+                            </TableCell>
+                            <TableCell>
+                                <Input class="w-[120px] p-1 m-0"v-model="form.zone_fuel" id="zone_fuel" required type="text" />
+                            </TableCell>
+                        </TableRow>
+                    </Table>
 
                     <div class="w-[600px] pt-4">
                         <Button type="submit" class="bg-amber-500">
                             <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                            Add Route
+                            Add Route To Flight
                         </Button>
-                        <Button type="button" class="float-right" @click="`/flightplans/routes/${props.flightplan.id}`">
+                        <Button type="button" class="float-right" @click="backToFlightPlan(flightplan.id)">
                             <ChevronsLeft class="h-4 w-4"/> 
                             Back to Flight Plan Route
                         </Button>

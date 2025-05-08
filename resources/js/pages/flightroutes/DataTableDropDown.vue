@@ -23,6 +23,11 @@ function copy(id : any){
 function route_delete(id : string){
     console.log("Delete this flight route: " + id);
 }
+
+function edit_route(ident: string){
+   // console.log("Editing route: " + id);
+   window.location.href = route('flightroute.edit', { id: ident});
+}
 </script>
 
 <template>
@@ -35,7 +40,7 @@ function route_delete(id : string){
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
             <DropdownMenuLabel class="flex font-extrabold text-center">Actions</DropdownMenuLabel>
-            <DropdownMenuItem>
+            <DropdownMenuItem @click="edit_route(flightroute.id.toString())">
                 <EditIcon /> Edit route
             </DropdownMenuItem>
             <DropdownMenuItem @click="$emit('expand')">
