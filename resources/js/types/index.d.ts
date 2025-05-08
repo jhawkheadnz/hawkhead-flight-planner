@@ -71,6 +71,9 @@ export interface FlightRoute {
     fuel_consumption: number;
     zone_fuel: string;
 
+    latlng_from: string;
+    latlng_to: string;
+
     created_at: string;
     updated_at: string;
 }

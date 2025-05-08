@@ -78,6 +78,8 @@ class FlightRouteController extends Controller
             'flight_plan_id' => $request->flight_plan_id,
             'from' => $request->from,
             'to' => $request->to,
+            'latlng_from' => $request->latlng_from,
+            'latlng_to' => $request->latlng_to,
             'airspeed_cas' => $request->airspeed_cas,
             'temp_c' => $request->temp_c,
             'altitude' => $request->altitude,

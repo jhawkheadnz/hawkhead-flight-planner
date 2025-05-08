@@ -22,6 +22,8 @@ return new class extends Migration
 
             $table->string("from");
             $table->string("to");
+            $table->string("latlng_from")->nullable;
+            $table->string("latlng_to")->nullable;
             $table->integer("airspeed_cas"); // calibrated air speed
             $table->decimal("temp_c"); // temperature °c
             $table->integer("altitude"); // altitude

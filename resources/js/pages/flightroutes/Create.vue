@@ -45,7 +45,9 @@ const form = useForm({
     eta: '12:55',
     fuel_consumption: '25',
     zone_fuel: '11',
-    order: 0
+    order: 0,
+    latlng_from: "0.0, 0.0",
+    latlng_to: "0.0, 0.0"
 });
 
 const submit = () => {
@@ -147,15 +149,15 @@ function updateDeviation(e : Event){
                         </TableRow>
                         <TableRow>
                             <TableCell>
-                                Latitude<br/> 
+                                Lat, Lng From<br/> 
                                 <em class="text-xs text-green-500">Optional</em>
                             </TableCell>
-                            <TableCell><Input class="w-[120px] p-1 m-0" type="text" /></TableCell>
+                            <TableCell><Input class="w-[120px] p-1 m-0" type="text" v-model="form.latlng_from"/></TableCell>
                             <TableCell>
-                                Longitude<br/>
+                                Lat, Lng To<br/>
                                 <em class="text-xs text-green-500">Optional</em>
                             </TableCell>
-                            <TableCell><Input class="w-[120px] p-1 m-0" type="text" /></TableCell>
+                            <TableCell><Input class="w-[120px] p-1 m-0" type="text" v-model="form.latlng_to" /></TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>
