@@ -1,13 +1,14 @@
-<script setup lang="ts" generic="TData, TValue">
+<script setup lang="ts" generic="TData, TColumn">
     import type { ColumnDef, ExpandedState } from '@tanstack/vue-table';
     import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-    import { FlexRender, getCoreRowModel, getExpandedRowModel, RowExpanding, useVueTable } from '@tanstack/vue-table';
-import { ref } from 'vue';
-import { valueUpdater } from '@/components/ui/table/utils';
+    import { FlexRender, getCoreRowModel, getExpandedRowModel, useVueTable } from '@tanstack/vue-table';
+    import { ref } from 'vue';
+    import { valueUpdater } from '@/components/ui/table/utils';
+import LeafletMap from './LeafletMap.vue';
 
     const props = defineProps<{
-        columns: ColumnDef<TData, TValue>[],
-        data: TData[]
+        columns: ColumnDef<TData, TColumn>[],
+        data: Array<TData>;
     }>();
 
     const expanded = ref<ExpandedState>({});
@@ -47,7 +48,8 @@ import { valueUpdater } from '@/components/ui/table/utils';
                         </TableRow>
                         <TableRow v-if="row.getIsExpanded()">
                             <TableCell :colspan="row.getAllCells().length">
-                                <strong>Route Summary for ({{ row.original.from }} to {{ row.original.to }})</strong>
+                                <!-- <div>{{ row.getValue("from") }}</div> -->
+                                <LeafletMap></LeafletMap>
                             </TableCell>
                         </TableRow>
                     </template>

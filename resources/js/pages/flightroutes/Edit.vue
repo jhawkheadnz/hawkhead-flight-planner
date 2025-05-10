@@ -45,7 +45,9 @@ const form = useForm({
     time: props.flightroute.time,
     eta: props.flightroute.eta,
     fuel_consumption: props.flightroute.fuel_consumption,
-    zone_fuel: props.flightroute.zone_fuel
+    zone_fuel: props.flightroute.zone_fuel,
+    latlng_from: props.flightroute.latlng_from,
+    latlng_to: props.flightroute.latlng_to
 });
 
 const submit = () => {
@@ -148,15 +150,15 @@ function backToFlightPlan(id : number){
                         </TableRow>
                         <TableRow>
                             <TableCell>
-                                Latitude<br/> 
+                                Lat, Lng From<br/> 
                                 <em class="text-xs text-green-500">Optional</em>
                             </TableCell>
-                            <TableCell><Input class="w-[120px] p-1 m-0" type="text" /></TableCell>
+                            <TableCell><Input class="w-[120px] p-1 m-0" type="text" v-model="form.latlng_from"/></TableCell>
                             <TableCell>
-                                Longitude<br/>
+                                Lat, Lng To<br/>
                                 <em class="text-xs text-green-500">Optional</em>
                             </TableCell>
-                            <TableCell><Input class="w-[120px] p-1 m-0" type="text" /></TableCell>
+                            <TableCell><Input class="w-[120px] p-1 m-0" type="text" v-model="form.latlng_to" /></TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>

@@ -5,7 +5,8 @@ import DropdownMenuItem from '@/components/ui/dropdown-menu/DropdownMenuItem.vue
 import DropdownMenuLabel from '@/components/ui/dropdown-menu/DropdownMenuLabel.vue';
 import DropdownMenuTrigger from '@/components/ui/dropdown-menu/DropdownMenuTrigger.vue';
 import { FlightRoute } from '@/types';
-import { ChevronsLeft, ChevronsRight, Clipboard, EditIcon, MoreHorizontal, Newspaper, Trash } from 'lucide-vue-next';
+import { Clipboard, EditIcon, MoreHorizontal, Newspaper, Trash } from 'lucide-vue-next';
+import Button from '@/components/ui/button/Button.vue';
 
 defineProps<{
     flightroute: FlightRoute
