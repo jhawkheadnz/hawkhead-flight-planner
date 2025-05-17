@@ -6,6 +6,7 @@ import DataTableDropDown from './DataTableDropDown.vue';
 export const columns: ColumnDef<FlightRoute>[] = [
     {
         accessorKey: 'from',
+        //accessorFn: row => `${row.from} - ${row.latlng_from}`,
         header: () => h('div', { class: 'text-center' }, 'From'),
         cell: ({ row }) => {
             const from = row.getValue('from');

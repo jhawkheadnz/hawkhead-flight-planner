@@ -48,7 +48,6 @@ import LeafletMap from './LeafletMap.vue';
                         </TableRow>
                         <TableRow v-if="row.getIsExpanded()">
                             <TableCell :colspan="row.getAllCells().length">
-                                <!-- <div>{{ row.getValue("from") }}</div> -->
                                 <LeafletMap></LeafletMap>
                             </TableCell>
                         </TableRow>

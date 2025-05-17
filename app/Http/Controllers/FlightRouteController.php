@@ -12,15 +12,37 @@ use Illuminate\Support\Facades\Auth;
 
 class FlightRouteController extends Controller
 {
+    private function getRouteDistance($routes){
+
+        $distance = 0;
+
+        foreach($routes as $route){
+            $distance += $route->distance;
+        }
+
+        return $distance;
+
+    }
+
     public function index($id){
 
         $routes = FlightRoute::where('flight_plan_id', "=", $id)->get();
+
+        $distance = $this->getRouteDistance($routes);
+        $distance_km = number_format(($distance * 1.852), 0);
+        $from = $routes[0]->from;
+        $to = $routes[count($routes) - 1]->to;
+
 
         $flightPlan = FlightPlan::find($id);
 
         return Inertia::render("flightroutes/Index", [
             'flightroutes' => $routes,
-            'flightplan' => $flightPlan
+            'flightplan' => $flightPlan,
+            'total_distance' => $distance,
+            'distance_km' => $distance_km,
+            'from' => $from,
+            'to' => $to
         ]);
 
     }
@@ -47,32 +69,6 @@ class FlightRouteController extends Controller
     }
 
     public function store(Request $request){
-
-        //dd($request);
-
-        /*$validation = $request->validate([
-            'flight_route' => ['required'],
-            'from' => ['required'],
-            'to' => ['required'],
-            'airspeed_cas' => ['required'],
-            'temp_c' => ['required'],
-            'altitude' => ['required'],
-            'airspeed_tas' => ['required'],
-            'track' => ['required'],
-            'wind_true' => ['required'],
-            'wind_speed' => ['required'],
-            'heading_true' => ['required'],
-            'variation' => ['required'],
-            'heading_magnetic' => ['required'],
-            'deviation' => ['required'],
-            'heading_compass' => ['required'],
-            'ground_speed' => ['required'],
-            'distance' => ['required'],
-            'time' => ['required'],
-            'eta' => ['required'],
-            'fuel_consumption' => ['required'],
-            'zone_fuel' => ['required']
-        ]);*/
 
         FlightRoute::create([
             'flight_plan_id' => $request->flight_plan_id,
